@@ -2,7 +2,7 @@
 #ifndef MOVIL_H
 #define MOVIL_H
 
-#include <string>;
+#include <string>
 using namespace std;
 
 
@@ -16,7 +16,7 @@ public:
   /// @param  nombre 
   /// @param  vel_x 
   /// @param  vel_y 
-   Movil(string nombre = "Generico", float vel_x = 0, float vel_y = 0)
+  Movil(string nombre = "Generico", float vel_x = 0, float vel_y = 0)
   {
   }
 

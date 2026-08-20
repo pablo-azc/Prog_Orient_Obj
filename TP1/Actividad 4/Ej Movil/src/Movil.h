@@ -17,7 +17,7 @@ public:
   /// @param  vel_x 
   /// @param  vel_y 
   Movil(string nombre = "Generico", float vel_x = 0, float vel_y = 0);
-
+  ///completo
   /// 
   /// Empty Constructor
   Movil();
@@ -36,38 +36,42 @@ public:
   /// Devuelve 1 si está encendido con una velocidad distinta a 0
   /// @return bool
   bool estaMoviendose();
+  /// completo
 
 
   /// 
   /// inicia el movimiento del movil. Si la velocidad es nula, devuelve 0
   /// @return bool
   bool encender();
-
+  //completo
 
   /// 
   /// detiene el vehiculo, pero mantiene la velocidad anterior en memoria
   void apagar();
+  //completo
 
 
   /// 
   /// @param  vel_x 
   /// @param  vel_y 
   void establecerVelocidad(float vel_x = 0, float vel_y = 0);
+  //completo
 
 
   /// 
   /// @param  tiempo tiempo a simular
   void simular(float tiempo);
+  //completo
 
 
   /// 
   /// @return cadena (string)
-  string obtenerPosicion();
+  void obtenerPosicion();
 
 
   /// 
   /// @return cadena (string)
-  string obtenerVelocidad();
+  void obtenerVelocidad();
 
 private:
   // Private attributes  

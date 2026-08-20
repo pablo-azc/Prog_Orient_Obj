@@ -1,5 +1,7 @@
 #include "Movil.h"
 #include <cmath>
+#include <iostream>
+///using namespace std;
 
 // Constructors/Destructors
 
@@ -50,6 +52,21 @@ void Movil::simular(float tiempo){
   return;
 }
 
+void Movil::establecerVelocidad(float vel_x, float vel_y){
+  velocidad_x=vel_x;
+  velocidad_y=vel_y;
+  return;
+}
+
+void Movil::obtenerPosicion(){
+  std::cout << "Posicion en X: " <<posicion_x<< "m; Posicion en Y: "<<posicion_y<< "m" <<endl;
+  return;
+}
+
+void Movil::obtenerVelocidad(){
+  std::cout << "Velocidad en X: " <<velocidad_x<< "m/s; Posicion en Y: "<<velocidad_y<< "m/s" <<endl;
+  return;
+}
 
 // Accessor methods
 // Other methods

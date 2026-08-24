@@ -5,12 +5,12 @@
 
 // Constructors/Destructors
 
-Movil::Movil(string nombre, float vel_x, float vel_y)
+Movil::Movil(string nombre, float pos_x, float pos_y)
 {
   initAttributes();
   Identificacion=nombre;
-  velocidad_x=vel_x;
-  velocidad_y=vel_y;
+  posicion_x=pos_x;
+  posicion_y=pos_y;
 }
 
 Movil::~Movil()
@@ -58,7 +58,12 @@ void Movil::obtenerPosicion(){
 }
 
 void Movil::obtenerVelocidad(){
-  std::cout << "Velocidad en X: " <<velocidad_x<< "m/s; Posicion en Y: "<<velocidad_y<< "m/s" <<endl;
+  std::cout << "Velocidad en X: " <<velocidad_x<< "m/s; Velocidad en Y: "<<velocidad_y<< "m/s" <<endl;
+  return;
+}
+
+void Movil::obtenerDistanciaTotal(){
+  std::cout << "Distancia total recorrida: " <<distanciaTotal<<"m" <<endl;
   return;
 }
 

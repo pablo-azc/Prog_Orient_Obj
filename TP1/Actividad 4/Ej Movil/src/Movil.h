@@ -50,9 +50,9 @@ public:
 
 
   /// 
-  /// @param  vel_x 
-  /// @param  vel_y 
-  void establecerVelocidad(float vel_x = 0, float vel_y = 0);
+  /// @param  pos_x 
+  /// @param  pos_y 
+  void establecerVelocidad(float pos_x = 0, float pos_y = 0);
   //completo
 
 
@@ -72,6 +72,10 @@ public:
   /// @return cadena (string)
   void obtenerVelocidad();
   //completo
+
+  void obtenerDistanciaTotal();
+  //completo
+
 private:
   // Private attributes  
 

@@ -18,9 +18,7 @@ public:
   /// @param  vel_y 
   Movil(string nombre = "Generico", float vel_x = 0, float vel_y = 0);
   ///completo
-  /// 
-  /// Empty Constructor
-  Movil();
+
 
   /// 
   /// Empty Destructor
@@ -67,12 +65,13 @@ public:
   /// 
   /// @return cadena (string)
   void obtenerPosicion();
+  //completo
 
 
   /// 
   /// @return cadena (string)
   void obtenerVelocidad();
-
+  //completo
 private:
   // Private attributes  
 

@@ -5,12 +5,6 @@
 
 // Constructors/Destructors
 
-
-Movil::Movil()
-{
-  initAttributes();
-}
-
 Movil::Movil(string nombre, float vel_x, float vel_y)
 {
   initAttributes();

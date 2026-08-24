@@ -8,3 +8,6 @@ main:
 run:
 	./$(OUT)
 
+clean:
+	rm $(OUT)
+

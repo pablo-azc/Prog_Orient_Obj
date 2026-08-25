@@ -1,6 +1,7 @@
 # Programación Orientada a Objetos
 
 ## Repositorio
-Este repositorio se debe a organizar los TPs de la materia POO de Ingeniería Mecatrónica de la UNCuyo
+Este repositorio es una entrega complementaria a los TPs de la materia POO de Ingeniería Mecatrónica de la UNCuyo.
+Está pensado para entregar el código de forma complementaria 
 ## Notas
-Estos trabajos oscilan entre Linux y Windows, así que posiblemente no sirvan las herramientas de Makefile. Estan pensadas para funcionar con Linux Mint
+Estos trabajos están pensadas para funcionar con Linux Mint

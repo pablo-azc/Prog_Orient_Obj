@@ -1,10 +1,11 @@
 #include "Movil.h"
 #include <cmath>
 #include <iostream>
-///using namespace std;
 
 // Constructors/Destructors
 
+//Se cambió en el constructor Velocidad por Posición 
+//para permitir iniciar en puntos distintos de 0
 Movil::Movil(string nombre, float pos_x, float pos_y)
 {
   initAttributes();
@@ -62,6 +63,7 @@ void Movil::obtenerVelocidad(){
   return;
 }
 
+//Nuevo metodo: Se generó este metodo para poder mostrar la distancia total
 void Movil::obtenerDistanciaTotal(){
   std::cout << "Distancia total recorrida: " <<distanciaTotal<<"m" <<endl;
   return;

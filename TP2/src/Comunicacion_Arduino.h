@@ -18,7 +18,7 @@ public:
 
   /// 
   /// @param comando 
-  void leerSerial(std::string comando = ""); //añadida la opcion de mandar un comando antes de leer
+  std::string leerSerial(std::string comando = ""); //añadida la opcion de mandar un comando antes de leer
 
 
   /// 
@@ -28,6 +28,8 @@ public:
 
 private:
   // Private attributes  
+
+  speed_t intToBaudRate(int baud);//necesario para poder tener baudrate variable
 
 
   int baudrate;

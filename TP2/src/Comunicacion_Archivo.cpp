@@ -28,7 +28,7 @@ bool Comunicacion_Archivo::leerRegistros()
 
 /// 
 /// @param  nombre 
- Comunicacion_Archivo::Comunicacion_Archivo(std::string nombre = "texto.txt")
+ Comunicacion_Archivo::Comunicacion_Archivo(std::string nombre)
 {
 }
 

@@ -45,9 +45,5 @@ int main(){
         Moviles[i].obtenerVelocidad();
         Moviles[i].obtenerDistanciaTotal();
     }
-    
-
-
-
     return 0;
 }

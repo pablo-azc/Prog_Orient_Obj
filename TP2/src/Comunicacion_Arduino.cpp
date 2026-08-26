@@ -16,10 +16,11 @@
 // Other methods
 
 
+
 /// 
 /// @param  puerto 
 /// @param  baudrate 
-Comunicacion_Arduino::Comunicacion_Arduino(std::string port = "/dev/ttyUSB0", int baud = 19200)
+Comunicacion_Arduino::Comunicacion_Arduino(std::string port, int baud)
 {
     puerto=port;
     baudrate=baud;
@@ -51,8 +52,21 @@ Comunicacion_Arduino::Comunicacion_Arduino(std::string port = "/dev/ttyUSB0", in
 }
 
 /// 
-void Comunicacion_Arduino::leerSerial(std::string comando)
+std::string Comunicacion_Arduino::leerSerial(std::string comando)
 {
+    if (comando != "")
+    {
+        Comunicacion_Arduino::escribirSerial(comando);
+        sleep(0.2);
+    }
+    
+    char buffer[512];
+    int bytes_read = read(serial_port, buffer, sizeof(buffer));
+    if (bytes_read > 0) {
+        return std::string(buffer,bytes_read+1);
+    }
+    return ";";
+    
 }
 
 
@@ -60,11 +74,12 @@ void Comunicacion_Arduino::leerSerial(std::string comando)
 /// @param  texto 
 void Comunicacion_Arduino::escribirSerial(std::string texto)
 {
+    write(serial_port,texto.c_str(),texto.length()+1);
 }
 
 
 //Funcion añadida que convierte del baudrate variable a baudrate que acepta Termios
-speed_t intToBaudRate(int baud) {
+speed_t Comunicacion_Arduino::intToBaudRate(int baud) {
     switch (baud) {
         case 2400:   return B2400;
         case 4800:   return B4800;

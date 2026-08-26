@@ -6,7 +6,7 @@ using namespace std;
 int main (int argc, char ** argv){
 
     Comunicacion_Arduino Arduino;
-    Comunicacion_Archivo Archivo();
+    Comunicacion_Archivo Archivo;
     
 
     std::cout << "Lista de "<< argc<<" parametros:"<<std::endl;
@@ -19,6 +19,8 @@ int main (int argc, char ** argv){
         }
         
     }
+
+    cout<<Arduino.leerSerial("h");
 
 
     

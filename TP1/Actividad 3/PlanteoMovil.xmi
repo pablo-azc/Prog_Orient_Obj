@@ -35,8 +35,8 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="uD2oDkn4OPjBz" name="distanciaTotal" comment="contador de la distancia total recorrida (en valor absoluto)" visibility="private" type="uK0NUHh1vFTHL" initialValue="0"/>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uF47bSe8LwgBk" name="Movil" comment="Ademas, permite especificar velocidades en X e Y">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uDcquY9f2nVep" name="nombre" visibility="private" type="u10WnpWMhMo6N" value="&quot;Generico&quot;"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uUwMeY76raYIy" name="vel_x" visibility="private" type="uK0NUHh1vFTHL" value="0"/>
-          <ownedParameter xmi:type="uml:Parameter" xmi:id="uGT8YJOcKvvWx" name="vel_y" visibility="private" type="uK0NUHh1vFTHL" value="0"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="uCkMZd4ToY3LW" name="pos_x" visibility="private" type="uK0NUHh1vFTHL" value="0"/>
+          <ownedParameter xmi:type="uml:Parameter" xmi:id="u27ftOKhi2T6j" name="pos_y" visibility="private" type="uK0NUHh1vFTHL" value="0"/>
         </ownedOperation>
         <ownedOperation xmi:type="uml:Operation" xmi:id="uusYevfEiy1O0" name="estaMoviendose" comment="Devuelve 1 si está encendido con una velocidad distinta a 0">
           <ownedParameter xmi:type="uml:Parameter" xmi:id="uCS0rykc1G20w" type="uK0oSKLti7TrU" direction="return"/>
@@ -61,10 +61,10 @@
       </packagedElement>
       <xmi:Extension extender="umbrello">
         <diagrams resolution="211">
-          <diagram xmi.id="uoLex1DQ17rXu" name="diagrama de clases" type="1" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Ubuntu,12,-1,5,50,0,0,0,0,0" griddotcolor="#f7f7f7" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="115" canvasheight="800" canvaswidth="1100" isopen="1">
+          <diagram xmi.id="uoLex1DQ17rXu" name="diagrama de clases" type="1" documentation="" backgroundcolor="#ffffff" fillcolor="#ffffc0" font="Ubuntu,12,-1,5,50,0,0,0,0,0" griddotcolor="#f7f7f7" linecolor="#990000" linewidth="0" textcolor="#000000" usefillcolor="1" showattribassocs="1" showatts="1" showattsig="1" showops="1" showopsig="1" showpackage="1" showpubliconly="0" showscope="1" showstereotype="2" localid="-1" showgrid="0" snapgrid="0" snapcsgrid="0" snapx="25" snapy="25" zoom="128.8" canvasheight="888.783" canvaswidth="791.391" isopen="1">
             <widgets>
-              <classwidget xmi.id="uPeDpvXSwISgU" localid="uvqxNDlHOrXTA" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu,12,-1,5,50,0,0,0,0,0" autoresize="1" x="-5.65217" y="150.826" width="1090" height="624" isinstance="0" showstereotype="2" showoperations="1" showpubliconly="0" showopsigs="601" showpackage="1" showscope="1" showattributes="1" showattsigs="601"/>
-              <notewidget xmi.id="uF4hvFeM2JFPo" localid="u5YyPHD0hymkB" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu,12,-1,5,50,0,0,0,0,0" autoresize="1" x="315.739" y="808.783" width="420" height="80" isinstance="0" showstereotype="2" text="Azcurra_Pablo_14100" noteType="0"/>
+              <notewidget xmi.id="uF4hvFeM2JFPo" localid="u5YyPHD0hymkB" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu,12,-1,5,50,0,0,0,0,0" autoresize="1" x="371.391" y="808.783" width="420" height="80" isinstance="0" showstereotype="2" text="Azcurra_Pablo_14100" noteType="0"/>
+              <classwidget xmi.id="uPeDpvXSwISgU" localid="uvqxNDlHOrXTA" textcolor="#000000" linecolor="#990000" linewidth="0" usefillcolor="1" usesdiagramfillcolor="0" usesdiagramusefillcolor="0" fillcolor="#ffffc0" font="Ubuntu,12,-1,5,50,0,0,0,0,0" autoresize="1" x="50" y="150.826" width="1111" height="624" isinstance="0" showstereotype="2" showoperations="1" showpubliconly="0" showopsigs="601" showpackage="1" showscope="1" showattributes="1" showattsigs="601"/>
             </widgets>
             <messages/>
             <associations/>
@@ -78,7 +78,7 @@
     <packagedElement xmi:type="uml:Model" xmi:id="Entity_Relationship_Model" name="Entity Relationship Model"/>
   </uml:Model>
   <xmi:Extension extender="umbrello">
-    <docsettings viewid="uoLex1DQ17rXu" documentation="" uniqueid="uDcquY9f2nVep"/>
+    <docsettings viewid="uoLex1DQ17rXu" documentation="" uniqueid="u27ftOKhi2T6j"/>
     <listview>
       <listitem id="Views" type="800" open="1">
         <listitem id="Entity_Relationship_Model" type="836" open="1"/>
@@ -109,6 +109,7 @@
             <listitem id="ueZUTCq2lKc0I" type="829" open="0"/>
             <listitem id="uAFBaGyWAfPlY" type="829" open="0"/>
             <listitem id="uK0NUHh1vFTHL" type="829" open="0"/>
+            <listitem id="uJE4UyE426vDb" type="829" open="0"/>
             <listitem id="uL0NN3UnxWVMh" type="829" open="0"/>
             <listitem id="uLCe5FOnUhHa4" type="829" open="0"/>
             <listitem id="uJbvjJMknUBLT" type="829" open="0"/>

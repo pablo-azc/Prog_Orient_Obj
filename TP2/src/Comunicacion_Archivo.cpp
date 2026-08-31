@@ -24,6 +24,7 @@ void Comunicacion_Archivo::add_record(Registro aIncluir)
 /// @return bool
 bool Comunicacion_Archivo::leerArchivo()
 {
+    std::fstream Archivo;
     Archivo.open(nombreArchivo);
     std::string temp;
     while (getline(Archivo,temp))
@@ -58,17 +59,21 @@ bool Comunicacion_Archivo::leerArchivo()
 /// @return bool
 bool Comunicacion_Archivo::escribirRegistros()
 {
-    Archivo.open(nombreArchivo);
+    std::ofstream Archivo;
+    Archivo.open(nombreArchivo,std::ios::out | std::ios::trunc);
     Archivo<<"device_id,sample_id,timestamp,position_x,position_y,velocity_x,velocity_y,total_distance,status"<<std::endl;
     for (int i = 0; i < registros.size(); i++)
     {
         Archivo<<registros[i].convertirATexto()<<std::endl;
     }
+    Archivo.close();
     return 1;
     
 }
 
 void Comunicacion_Archivo::leerRegistros(){
+    std::cout<<"Los registros están codificados de la siguiente forma:"<<std::endl;
+    std::cout<<"device_id,sample_id,timestamp,position_x,position_y,velocity_x,velocity_y,total_distance,status"<<std::endl;
     for (int i = 0; i < registros.size(); i++)
     {
         std::cout<<registros[i].convertirATexto()<<std::endl;

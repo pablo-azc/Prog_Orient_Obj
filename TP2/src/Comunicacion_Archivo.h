@@ -46,7 +46,7 @@ private:
   std::string timestamp;
   int size;
   std::vector<Registro> registros;
-  std::fstream Archivo;
+  
 
 };
 

@@ -20,7 +20,7 @@
 /// 
 /// @param  puerto 
 /// @param  baudrate 
-Comunicacion_Arduino::Comunicacion_Arduino(std::string port, int baud)
+void Comunicacion_Arduino::iniciar(std::string port, int baud)
 {
     puerto=port;
     baudrate=baud;
@@ -59,15 +59,15 @@ std::string Comunicacion_Arduino::leerSerial(std::string comando)
     if (comando != "")
     {
         Comunicacion_Arduino::escribirSerial(comando);
-        sleep(0.2);
+        usleep(200000);
     }
     
     char buffer[512];
     int bytes_read = read(serial_port, buffer, sizeof(buffer));
     if (bytes_read > 0) {
-        return std::string(buffer);
+        return std::string(buffer,bytes_read);
     }
-    return ";";
+    return "";
     
 }
 

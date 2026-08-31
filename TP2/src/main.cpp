@@ -7,39 +7,16 @@ using namespace std;
 Comunicacion_Arduino Arduino;
 Comunicacion_Archivo Archivo("salida.csv");
 
-int main (int argc, char ** argv){    
-
-    std::cout << "Lista de "<< argc<<" parametros:"<<std::endl;
-    for (int i = 0; i < argc; i++)
-    {
-        std::cout<<"argv["<<i<<"]_"<<argv[i] << std::endl;
-        if (argv[i]=="-read")
-        {
-            cout<<"Lectura detectada";
-        }
-        
-    }
-
-    //cout<<Arduino.leerSerial("h");
-    //Registro basura;
-    //basura.ConvertirDeTexto("2,1,1000,1.25,0.75,1.25,0.75,1.46,1");
-    //Archivo.add_record(basura);
-    //Archivo.escribirRegistros();
-    Archivo.leerArchivo();
-
-    
-}
 
 void leerArduino(int veces = 1)
 {
-    sleep(1);
+    cout<<"Estado: Conectado con Arduino"<<endl;
+    sleep(2);
+    Arduino.leerSerial();
 
-    while (Arduino.leerSerial()!="")
-    {
-        sleep(0.5);
-    }
     for (int i = 0; i < veces; i++)
     {
+        cout<<"Estado: Leyendo Registro "<<i<<endl;
         Registro temp;
         temp.ConvertirDeTexto(Arduino.leerSerial("c"));
         Archivo.add_record(temp);
@@ -47,9 +24,100 @@ void leerArduino(int veces = 1)
 }
 
 
-/// 
-void escribir()
-{
+enum objetivos{NoEspecificado,leer,escribir};
+
+
+int main (int argc, char ** argv){    
+
+    objetivos comando;
+    int veces=1;
+    string puerto="/dev/ttyUSB0";
+
+    //std::cout << "Lista de "<< argc<<" parametros:"<<std::endl;
+    for (int i = 0; i < argc; i++)
+    {
+        string arg = argv[i];
+        std::cout<<"argv["<<i<<"]_"<<arg << std::endl;
+        if (arg=="--mode")
+        {
+            
+            if (argc>i)
+            {
+                i++;
+            }
+            
+            arg=argv[i];
+            if (arg== "read")
+            {
+                comando=leer;
+            }
+            else if (arg=="write")
+            {
+                comando=escribir;
+            }else{
+                cout<<"Comando --mode Mal usado"<<endl;
+            }
+            
+        }
+        if (arg=="--file")
+        {
+            if (argc>i)
+            {
+            i++;
+            arg=argv[i];
+            Archivo.nombreArchivo=arg;
+            } else
+            {
+                cout<<"Comando --file Mal usado"<<endl;
+            }
+            
+        }
+        if (arg=="--port")
+        {
+            if (argc>i)
+            {
+            i++;
+            arg=argv[i];
+            puerto=arg;}else
+            {
+                cout<<"Comando --port Mal usado"<<endl;
+            }
+        }
+
+        if (arg=="--count")
+        {
+            if (argc>i)
+            {
+            i++;
+            arg=argv[i];
+            veces=stoi(arg);
+            }else
+            {
+                cout<<"Comando --count Mal usado"<<endl;
+            }
+        }
+        
+    }
+
+    switch (comando)
+    {
+    case leer:
+        Archivo.leerArchivo();
+        Archivo.leerRegistros();
+        break;
+
+    case escribir:
+        Arduino.iniciar(puerto);
+        leerArduino(veces);
+        Archivo.leerRegistros();
+        Archivo.escribirRegistros();
+        break;
+    
+    default:
+        cout<<"Faltó especificar operación"<<endl;
+        break;
+    }
+
+
+    
 }
-
-

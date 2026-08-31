@@ -20,14 +20,14 @@ std::string Registro::convertirATexto()
     std::ostringstream salida;
 
     
-    salida << id << ","
-       << sample << ","
-       << timestamp << ","
-       << posicion_x << ","
-       << posicion_y << ","
-       << velocidad_x << ","
-       << velocidad_y << ","
-       << dist_total << ","
+    salida << id << ",\t"
+       << sample << ",\t"
+       << timestamp << ",\t"
+       << posicion_x << ",\t"
+       << posicion_y << ",\t"
+       << velocidad_x << ",\t"
+       << velocidad_y << ",\t"
+       << dist_total << ",\t"
        << (estatus ? "1" : "0"); // Convertimos el bool a "1" o "0" 
 
     return salida.str();

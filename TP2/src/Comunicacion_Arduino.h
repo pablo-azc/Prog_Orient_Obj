@@ -16,6 +16,8 @@ public:
   /// @param  texto 
   void escribirSerial(std::string texto);
 
+
+
   /// 
   /// @param comando 
   std::string leerSerial(std::string comando = ""); //añadida la opcion de mandar un comando antes de leer
@@ -24,7 +26,7 @@ public:
   /// 
   /// @param  puerto 
   /// @param  baudrate 
-   Comunicacion_Arduino(std::string puerto = "/dev/ttyUSB0", int baudrate = 19200);
+  void iniciar(std::string puerto = "/dev/ttyUSB0", int baudrate = 19200);
 
 private:
   // Private attributes  

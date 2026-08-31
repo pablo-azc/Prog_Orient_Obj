@@ -4,6 +4,8 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
+#include <fstream>
 #include "Registro.h"
 
 
@@ -23,12 +25,14 @@ public:
 
   /// 
   /// @return bool
-  bool leerRegistros();
+  void leerRegistros();
+
+  bool leerArchivo();
 
 
   /// 
   /// @param  nombre 
-   Comunicacion_Archivo(std::string nombre = "texto.txt");
+  Comunicacion_Archivo(std::string nombre = "texto.txt");
 
 
   /// 
@@ -42,6 +46,7 @@ private:
   std::string timestamp;
   int size;
   std::vector<Registro> registros;
+  std::fstream Archivo;
 
 };
 

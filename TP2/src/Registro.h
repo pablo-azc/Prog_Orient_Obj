@@ -20,7 +20,7 @@ public:
 private:
   // Private attributes  
 
-
+  std::string id;
   std::string timestamp;
   double posicion_x;
   double posicion_y;

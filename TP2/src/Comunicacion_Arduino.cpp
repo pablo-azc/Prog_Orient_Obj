@@ -49,6 +49,8 @@ Comunicacion_Arduino::Comunicacion_Arduino(std::string port, int baud)
     // Aplicar configuración
     tcsetattr(serial_port, TCSANOW, &tty);
 
+    sleep(5);
+
 }
 
 /// 
@@ -63,7 +65,7 @@ std::string Comunicacion_Arduino::leerSerial(std::string comando)
     char buffer[512];
     int bytes_read = read(serial_port, buffer, sizeof(buffer));
     if (bytes_read > 0) {
-        return std::string(buffer,bytes_read+1);
+        return std::string(buffer);
     }
     return ";";
     

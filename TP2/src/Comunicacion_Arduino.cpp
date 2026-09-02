@@ -46,6 +46,15 @@ void Comunicacion_Arduino::iniciar(std::string port, int baud)
     tty.c_cflag |= CS8;
     tty.c_cflag |= CREAD | CLOCAL; // Activar lectura e ignorar señales de control de módem
 
+    tty.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+
+    // --- CONFIGURACIÓN DEL TIMEOUT ---
+    tty.c_cc[VTIME] = 10; // Tiempo de espera en décimas de segundo (10 = 1 segundo)
+    tty.c_cc[VMIN] = 0;   // Número mínimo de caracteres a leer antes de desbloquear
+
+    // Vaciar buffers de entrada y salida
+    tcflush(serial_port, TCIOFLUSH);
+
     // Aplicar configuración
     tcsetattr(serial_port, TCSANOW, &tty);
 
@@ -56,12 +65,12 @@ void Comunicacion_Arduino::iniciar(std::string port, int baud)
 /// 
 std::string Comunicacion_Arduino::leerSerial(std::string comando)
 {
+    
     if (comando != "")
     {
         Comunicacion_Arduino::escribirSerial(comando);
-        usleep(200000);
     }
-    
+    usleep(200000);
     char buffer[512];
     int bytes_read = read(serial_port, buffer, sizeof(buffer));
     if (bytes_read > 0) {
@@ -76,7 +85,7 @@ std::string Comunicacion_Arduino::leerSerial(std::string comando)
 /// @param  texto 
 void Comunicacion_Arduino::escribirSerial(std::string texto)
 {
-    write(serial_port,texto.c_str(),texto.length()+1);
+    write(serial_port,texto.c_str(),texto.length());
 }
 
 

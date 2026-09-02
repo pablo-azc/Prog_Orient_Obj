@@ -2,23 +2,48 @@
 #include <string>
 #include "Comunicacion_Arduino.h"
 #include "Comunicacion_Archivo.h"
+
 using namespace std;
 
 Comunicacion_Arduino Arduino;
 Comunicacion_Archivo Archivo("salida.csv");
 
+bool entradaCorrecta(string entrada){
+    if (entrada.length()<5|entrada.find("device_id")!= string::npos|entrada.find("#")!= string::npos)
+    {
+        return false;
+    }
+    return true;
+}
+
+//vector<string> MensajesAIgnorar;
+    //Objetivo: Ignorar primeros mensajes
+    //string temporal = Arduino.leerSerial();
+    //while (temporal==MensajesAIgnorar[1]||temporal==MensajesAIgnorar[2]|temporal==MensajesAIgnorar[3]|)
+    //{
+        /* code */
+    //}
 
 void leerArduino(int veces = 1)
 {
     cout<<"Estado: Conectado con Arduino"<<endl;
     sleep(2);
+    string temporal;    
+    //Elimina la primera linea por si se inició la comunicacion con el monitor serial
     Arduino.leerSerial();
 
     for (int i = 0; i < veces; i++)
     {
         cout<<"Estado: Leyendo Registro "<<i<<endl;
         Registro temp;
-        temp.ConvertirDeTexto(Arduino.leerSerial("c"));
+        Arduino.escribirSerial("c");
+        do
+        {
+            //comprueba si la linea es correcta
+            temporal=Arduino.leerSerial();
+            cout<<"Respuesta del Arduino:"<<temporal;
+        } while (!entradaCorrecta(temporal));
+        temp.ConvertirDeTexto(temporal);
         Archivo.add_record(temp);
     }
 }

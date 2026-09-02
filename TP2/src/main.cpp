@@ -7,8 +7,10 @@ using namespace std;
 
 Comunicacion_Arduino Arduino;
 Comunicacion_Archivo Archivo("salida.csv");
+string formato = "CSV";
 
 bool entradaCorrecta(string entrada){
+    //Si la respuesta es muy corta, es la inicial o el encabezado, lo ignora
     if (entrada.length()<5|entrada.find("device_id")!= string::npos|entrada.find("#")!= string::npos)
     {
         return false;
@@ -16,18 +18,10 @@ bool entradaCorrecta(string entrada){
     return true;
 }
 
-//vector<string> MensajesAIgnorar;
-    //Objetivo: Ignorar primeros mensajes
-    //string temporal = Arduino.leerSerial();
-    //while (temporal==MensajesAIgnorar[1]||temporal==MensajesAIgnorar[2]|temporal==MensajesAIgnorar[3]|)
-    //{
-        /* code */
-    //}
 
 void leerArduino(int veces = 1)
 {
     cout<<"Estado: Conectado con Arduino"<<endl;
-    sleep(2);
     string temporal;    
     //Elimina la primera linea por si se inició la comunicacion con el monitor serial
     Arduino.leerSerial();
@@ -41,7 +35,7 @@ void leerArduino(int veces = 1)
         {
             //comprueba si la linea es correcta
             temporal=Arduino.leerSerial();
-            cout<<"Respuesta del Arduino:"<<temporal;
+            //cout<<"Respuesta del Arduino:"<<temporal;
         } while (!entradaCorrecta(temporal));
         temp.ConvertirDeTexto(temporal);
         Archivo.add_record(temp);
@@ -62,10 +56,9 @@ int main (int argc, char ** argv){
     for (int i = 0; i < argc; i++)
     {
         string arg = argv[i];
-        std::cout<<"argv["<<i<<"]_"<<arg << std::endl;
+        //std::cout<<"argv["<<i<<"]_"<<arg << std::endl; //Linea de desarrolo: lista los parametros
         if (arg=="--mode")
-        {
-            
+        {     
             if (argc>i)
             {
                 i++;
@@ -108,7 +101,6 @@ int main (int argc, char ** argv){
                 cout<<"Comando --port Mal usado"<<endl;
             }
         }
-
         if (arg=="--count")
         {
             if (argc>i)
@@ -121,20 +113,33 @@ int main (int argc, char ** argv){
                 cout<<"Comando --count Mal usado"<<endl;
             }
         }
+        if (arg=="--format")
+        {
+            if (argc>i)
+            {
+            i++;
+            arg=argv[i];
+            formato=arg;
+            } else
+            {
+                cout<<"Comando --format Mal usado"<<endl;
+            }
+        }
         
     }
 
+    //Realiza las acciones según operación
     switch (comando)
     {
     case leer:
         Archivo.leerArchivo();
-        Archivo.leerRegistros();
+        Archivo.leerRegistros(formato);
         break;
 
     case escribir:
         Arduino.iniciar(puerto);
         leerArduino(veces);
-        Archivo.leerRegistros();
+        Archivo.leerRegistros(formato);
         Archivo.escribirRegistros();
         break;
     

@@ -40,13 +40,14 @@ void Comunicacion_Arduino::iniciar(std::string port, int baud)
     cfsetospeed(&tty, intToBaudRate(baudrate)); // Velocidad de salida
 
     // Configuración 8N1 (8 bits de datos, sin paridad, 1 bit de parada)
-    tty.c_cflag &= ~PARENB;
-    tty.c_cflag &= ~CSTOPB;
+    tty.c_cflag &= ~PARENB;//Desactiva Paridad
+    tty.c_cflag &= ~CSTOPB;//Desactiva 2 bits de parada
     tty.c_cflag &= ~CSIZE;
-    tty.c_cflag |= CS8;
+    tty.c_cflag |= CS8;//8 bits de datos
     tty.c_cflag |= CREAD | CLOCAL; // Activar lectura e ignorar señales de control de módem
 
-    tty.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG);
+    // Desactivar modo canónico, eco de caracteres y señales
+    tty.c_lflag &= ~(ICANON | ECHO | ECHOE | ISIG); 
 
     // --- CONFIGURACIÓN DEL TIMEOUT ---
     tty.c_cc[VTIME] = 10; // Tiempo de espera en décimas de segundo (10 = 1 segundo)
@@ -65,13 +66,15 @@ void Comunicacion_Arduino::iniciar(std::string port, int baud)
 /// 
 std::string Comunicacion_Arduino::leerSerial(std::string comando)
 {
-    
+    //si hay un comando, lo escribe. Sino, no.
     if (comando != "")
     {
         Comunicacion_Arduino::escribirSerial(comando);
     }
+    //espera por si se procesa una respuesta
     usleep(200000);
     char buffer[512];
+    //devuelve lo que leyó
     int bytes_read = read(serial_port, buffer, sizeof(buffer));
     if (bytes_read > 0) {
         return std::string(buffer,bytes_read);

@@ -10,7 +10,7 @@ class Registro
 {
 public:
   /// 
-  std::string convertirATexto();
+  std::string convertirATexto(std::string formato="CSV");
 
 
   /// 

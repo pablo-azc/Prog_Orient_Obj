@@ -25,7 +25,7 @@ public:
 
   /// 
   /// @return bool
-  void leerRegistros();
+  void leerRegistros(std::string formato="CSV");
 
   bool leerArchivo();
 

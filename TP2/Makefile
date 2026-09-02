@@ -8,6 +8,12 @@ main:
 run:
 	./$(OUT)
 
+read:
+	./$(OUT) --mode read
+
+write:
+	./$(OUT) --mode write --count 10
+
 clean:
 	rm $(OUT)
 

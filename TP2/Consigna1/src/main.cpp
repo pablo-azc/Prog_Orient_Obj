@@ -42,7 +42,6 @@ void leerArduino(int veces = 1)
     }
 }
 
-
 enum objetivos{NoEspecificado,leer,escribir};
 
 
@@ -63,7 +62,6 @@ int main (int argc, char ** argv){
             {
                 i++;
             }
-            
             arg=argv[i];
             if (arg== "read")
             {
@@ -125,7 +123,6 @@ int main (int argc, char ** argv){
                 cout<<"Comando --format Mal usado"<<endl;
             }
         }
-        
     }
 
     //Realiza las acciones según operación
@@ -135,19 +132,14 @@ int main (int argc, char ** argv){
         Archivo.leerArchivo();
         Archivo.leerRegistros(formato);
         break;
-
     case escribir:
         Arduino.iniciar(puerto);
         leerArduino(veces);
         Archivo.leerRegistros(formato);
         Archivo.escribirRegistros();
         break;
-    
     default:
         cout<<"Faltó especificar operación"<<endl;
         break;
-    }
-
-
-    
+    }   
 }

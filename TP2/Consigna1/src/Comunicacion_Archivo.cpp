@@ -1,25 +1,12 @@
 #include "Comunicacion_Archivo.h"
 #include <string>
 
-// Methods
-
-
-// Accessor methods
-
-
-
-// Other methods
-
-
-
-/// 
 /// @param  aIncluir 
 void Comunicacion_Archivo::add_record(Registro aIncluir)
 {
     //añade una copia del registro al archivo original
     registros.push_back(aIncluir);
 }
-
 
 /// 
 /// @return bool
@@ -37,12 +24,10 @@ bool Comunicacion_Archivo::leerArchivo()
         {
             continue;
         }
-
         //si la linea esta vacia, la ignora
         if(temp==""){
             break;
         }
-
         //Guarda una copia del registro temporal en los registros
         Registro temporal;
         temporal.ConvertirDeTexto(temp);
@@ -80,7 +65,6 @@ bool Comunicacion_Archivo::escribirRegistros()
     //cierra
     Archivo.close();
     return 1;
-    
 }
 
 void Comunicacion_Archivo::leerRegistros(std::string formato){

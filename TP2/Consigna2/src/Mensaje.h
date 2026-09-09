@@ -2,8 +2,8 @@
 #ifndef MENSAJE_H
 #define MENSAJE_H
 
-#include cadena (string)
-#include vector
+#include <iostream>
+#include <vector>
 
 
 class Mensaje
@@ -13,14 +13,14 @@ public:
   /// Si contiene el parametro, devuelve el indice. Si no lo contiene, devuelve 0
   /// @return int
   /// @param  nombreParametro 
-  int contieneParametro(cadena (string) nombreParametro);
+  int contieneParametro(std::string nombreParametro);
 
 
   /// 
   /// Devuelve el valor interno del valor pedido
-  /// @return cadena (string)
+  /// @return std::string
   /// @param  nombreParametro 
-  cadena (string) obtenerParametro(cadena (string) nombreParametro);
+  std::string obtenerParametro(std::string nombreParametro);
 
 
   /// 
@@ -28,25 +28,25 @@ public:
   /// como parametro
   /// @param  nombreParametro 
   /// @param  informacionParametro 
-  void establecerParametro(cadena (string) nombreParametro, cadena (string) informacionParametro);
+  void establecerParametro(std::string nombreParametro, std::string informacionParametro);
 
 
   /// 
   /// Funcion que devuelve todos los nombres de parametros disponibles
   /// @return vector<string>
-  vector<string> listarParametros();
+  std::vector<std::string> listarParametros();
 
 
   /// 
   /// @param  nombreParametro 
-  void eliminarParametro(cadena (string) nombreParametro);
+  void eliminarParametro(std::string nombreParametro);
 
 private:
   // Private attributes  
 
 
-  vector<string> nombres;
-  vector<string> datos;
+  std::vector<std::string> nombres;
+  std::vector<std::string> datos;
 
 };
 

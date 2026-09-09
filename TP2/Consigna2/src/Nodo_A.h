@@ -2,8 +2,9 @@
 #ifndef NODO_A_H
 #define NODO_A_H
 
-#include cadena (string)
-#include vector
+#include "Mensaje.h"
+#include <iostream>
+#include <vector>
 
 
 class Nodo_A

@@ -10,10 +10,16 @@ class Mensaje
 {
 public:
   /// 
-  /// Si contiene el parametro, devuelve el indice. Si no lo contiene, devuelve 0
+  /// Si contiene el parametro, devuelve el indice. Si no lo contiene, devuelve -1
   /// @return int
   /// @param  nombreParametro 
-  int contieneParametro(std::string nombreParametro);
+  int obtenerIndice(std::string nombreParametro);
+
+  /// 
+  /// Si contiene el parametro, devuelve true
+  /// @return bool
+  /// @param  nombreParametro 
+  bool estaPresente(std::string nombreParametro);
 
 
   /// 
@@ -21,6 +27,13 @@ public:
   /// @return std::string
   /// @param  nombreParametro 
   std::string obtenerParametro(std::string nombreParametro);
+
+  //sobrecarga si ya se buscó el indice
+  /// 
+  /// Devuelve el valor interno ubicado en el indice indice
+  /// @return std::string
+  /// @param  indice 
+  std::string obtenerParametro(int indice);
 
 
   /// 

@@ -2,12 +2,13 @@
 #ifndef NODO_B_H
 #define NODO_B_H
 
+#include "Nodo.h"
 #include <iostream>
 #include <vector>
 #include "Mensaje.h"
 
 
-class Nodo_B
+class Nodo_B:public Nodo
 {
 public:
   /// 
@@ -27,13 +28,10 @@ public:
   void setMemoria(std::string Parametro1, int Parametro2, double Parametro3, 
   float Parametro4, int indice);
 
-  void MostrarTodo();
 
 
 private:
 
-
-  std::vector<Mensaje> Historial;
   std::string Parametro1;
   int Parametro2;
   double Parametro3;

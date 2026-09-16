@@ -21,21 +21,22 @@ public:
 
   ///Funcion para probar el funcionamiento de "EnviarMensaje"
   void setMemoria(std::string Parametro1, int Parametro2, double Parametro3, 
-  float Parametro4, int ID, int indice);
+  float Parametro4, int indice);
 
   void MostrarTodo();
 
 
 private:
 
-
   std::vector<Mensaje> Historial;
   std::string Parametro1;
   int Parametro2;
   double Parametro3;
   float Parametro4;
-  int ID = 1470369;
   int indice;
+
+  int ID_Dispositivo_Esperado = 1470369;
+  int ID_Usuario_Esperado = 14100;
 
 };
 

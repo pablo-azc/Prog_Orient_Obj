@@ -15,6 +15,20 @@
 /// @param  info 
 void Nodo_B::RecibirMensaje(Mensaje info)
 {
+    try
+    {
+        this->Parametro1=info.obtenerParametro("Parametro1");
+        this->Parametro2=std::stoi(info.obtenerParametro("Parametro2"));
+        this->Parametro3=std::stod(info.obtenerParametro("Parametro3"));
+        this->Parametro4=std::stof(info.obtenerParametro("Parametro4"));
+        this->indice=std::stoi(info.obtenerParametro("indice"));
+        Historial.push_back(info);
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << "Posible parametro no existente" << '\n';
+    }
+    
 }
 
 
@@ -22,6 +36,54 @@ void Nodo_B::RecibirMensaje(Mensaje info)
 /// @return Mensaje
 Mensaje Nodo_B::EnviarMensaje()
 {
+    Mensaje AEnviar;
+    AEnviar.establecerParametro("Parametro1",Parametro1);
+    AEnviar.establecerParametro("Parametro2",std::to_string(Parametro2));
+    AEnviar.establecerParametro("Parametro3",std::to_string(Parametro3));
+    AEnviar.establecerParametro("Parametro4",std::to_string(Parametro4));
+    AEnviar.establecerParametro("ID_Dispositivo",std::to_string(ID_Dispositivo));
+    AEnviar.establecerParametro("ID_Usuario",std::to_string(ID_Usuario));
+    AEnviar.establecerParametro("indice",std::to_string(indice));
+    return AEnviar;
 }
+
+void Nodo_B::setMemoria(std::string Parametro1, int Parametro2, double Parametro3, 
+  float Parametro4, int indice, int ID_Dispositivo,int ID_Usuario){
+    this->Parametro1=Parametro1;
+    this->Parametro2=Parametro2;
+    this->Parametro3=Parametro3;
+    this->Parametro4=Parametro4;
+    this->ID_Dispositivo = ID_Dispositivo;
+    this->ID_Usuario = ID_Usuario;
+    this->indice = indice;
+  }
+
+void Nodo_B::setMemoria(std::string Parametro1, int Parametro2, double Parametro3, 
+  float Parametro4, int indice){
+    this->Parametro1=Parametro1;
+    this->Parametro2=Parametro2;
+    this->Parametro3=Parametro3;
+    this->Parametro4=Parametro4;
+    this->indice = indice;
+  }
+
+void Nodo_B::MostrarTodo(){
+    for (int indiceMensaje = 0; indiceMensaje < Historial.size(); indiceMensaje++)
+    {
+        std::vector<std::string> temp = Historial[indiceMensaje].listarParametros();
+        std::cout<<std::endl<<"<Mensaje "<<indiceMensaje<<">"<<std::endl;
+        for (int i = 0; i < temp.size(); i++)
+        {
+            std::cout<<"\t<"<< temp[i] << ">"
+            <<Historial[indiceMensaje].obtenerParametro(i)
+            <<"</"<< temp[i] << ">" << std::endl;
+        }
+        std::cout<<std::endl<<"</Mensaje "<<indiceMensaje<<">"<<std::endl;
+    }
+    
+}
+
+
+
 
 

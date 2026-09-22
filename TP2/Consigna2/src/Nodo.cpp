@@ -16,3 +16,56 @@ void Nodo::MostrarTodo(){
     
 }
 
+void Nodo::actualizar(std::string &Destino,const std::string &Nombre, const Mensaje &Fuente){
+    if (Fuente.estaPresente(Nombre)){
+        try
+        {
+            Destino=Fuente.obtenerParametro(Nombre);
+        }
+        catch(const std::exception& e)
+        {
+           return;
+        }
+    }
+}
+
+void Nodo::actualizar(int &Destino,const std::string &Nombre, const Mensaje &Fuente){
+        if (Fuente.estaPresente(Nombre)){
+        try
+        {
+            Destino=std::stoi(Fuente.obtenerParametro(Nombre));
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr<<"[Error]Converison No Valida"<<std::endl;
+           return;
+        }
+    }
+}
+void Nodo::actualizar(float &Destino,const std::string &Nombre, const Mensaje &Fuente){
+            if (Fuente.estaPresente(Nombre)){
+        try
+        {
+            Destino=std::stof(Fuente.obtenerParametro(Nombre));
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr<<"[Error]Converison No Valida"<<std::endl;
+           return;
+        }
+    }
+}
+void Nodo::actualizar(double &Destino,const std::string &Nombre, const Mensaje &Fuente){
+        if (Fuente.estaPresente(Nombre)){
+        try
+        {
+            Destino=std::stod(Fuente.obtenerParametro(Nombre));
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr<<"[Error]Converison No Valida"<<std::endl;
+           return;
+        }
+    }
+}
+

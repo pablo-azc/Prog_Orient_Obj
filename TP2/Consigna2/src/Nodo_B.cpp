@@ -15,19 +15,12 @@
 /// @param  info 
 void Nodo_B::RecibirMensaje(Mensaje info)
 {
-    try
-    {
-        this->Parametro1=info.obtenerParametro("Parametro1");
-        this->Parametro2=std::stoi(info.obtenerParametro("Parametro2"));
-        this->Parametro3=std::stod(info.obtenerParametro("Parametro3"));
-        this->Parametro4=std::stof(info.obtenerParametro("Parametro4"));
-        this->indice=std::stoi(info.obtenerParametro("indice"));
-        Historial.push_back(info);
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << "Posible parametro no existente" << '\n';
-    }
+  actualizar(this->Parametro1, "Parametro1", info);
+  actualizar(this->Parametro2, "Parametro2", info);
+  actualizar(this->Parametro3, "Parametro3", info);
+  actualizar(this->Parametro4, "Parametro4", info);
+  actualizar(this->indice, "indice", info);
+  Historial.push_back(info);
     
 }
 

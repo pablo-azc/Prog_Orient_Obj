@@ -15,29 +15,28 @@
 /// @param  info 
 void Nodo_A::RecibirMensaje(Mensaje info)
 {
-    try
-    {
+    try{
         int DispositivoRecibido = std::stoi(info.obtenerParametro("ID_Dispositivo"));
         int UsuarioRecibido = std::stoi(info.obtenerParametro("ID_Usuario"));
+
         if (UsuarioRecibido == ID_Usuario_Esperado && DispositivoRecibido == ID_Dispositivo_Esperado)
         {
-            this->Parametro1=info.obtenerParametro("Parametro1");
-            this->Parametro2=std::stoi(info.obtenerParametro("Parametro2"));
-            this->Parametro3=std::stod(info.obtenerParametro("Parametro3"));
-            this->Parametro4=std::stof(info.obtenerParametro("Parametro4"));
-            this->indice=std::stoi(info.obtenerParametro("indice"));
+            actualizar(this->Parametro1, "Parametro1", info);
+            actualizar(this->Parametro2, "Parametro2", info);
+            actualizar(this->Parametro3, "Parametro3", info);
+            actualizar(this->Parametro4, "Parametro4", info);
+            actualizar(this->indice, "indice", info);
             Historial.push_back(info);
         }
         else{
             std::cerr << "[Error] Mensaje Recibido pero No reconocido por tener ID Incorrecta";
         }
-
     }
     catch(const std::exception& e)
     {
-        std::cerr << "Posible parametro no existente" << '\n';
+        std::cerr << "Parametros identificatorios NO INCLUIDOS, Mensaje IGNORADO" << '\n';
+        return;
     }
-    
 }
 
 
@@ -51,6 +50,7 @@ Mensaje Nodo_A::EnviarMensaje()
     AEnviar.establecerParametro("Parametro3",std::to_string(Parametro3));
     AEnviar.establecerParametro("Parametro4",std::to_string(Parametro4));
     AEnviar.establecerParametro("indice",std::to_string(indice));
+    AEnviar.establecerModo(1);
     return AEnviar;
 }
 

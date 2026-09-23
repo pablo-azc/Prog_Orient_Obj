@@ -22,6 +22,9 @@ public:
   /// @param  aIncluir 
   void add_record(Registro aIncluir);
 
+  //NUEVO: Directamente recibe el texto y lo añade
+  void add_record(std::string aIncluir);
+
 
   /// 
   /// @return bool
@@ -34,6 +37,7 @@ public:
   /// @param  nombre 
   Comunicacion_Archivo(std::string nombre = "texto.txt");
 
+  
 
   /// 
   /// @return bool

@@ -20,15 +20,8 @@ public:
 private:
   // Private attributes  
 
-  std::string id;
-  std::string timestamp;
-  double posicion_x;
-  double posicion_y;
-  double velocidad_x;
-  double velocidad_y;
-  double dist_total;
-  bool estatus;
-  int sample;
+
+  std::string timestamp, type, menssage;
 
 };
 

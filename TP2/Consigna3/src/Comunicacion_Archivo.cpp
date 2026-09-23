@@ -8,6 +8,15 @@ void Comunicacion_Archivo::add_record(Registro aIncluir)
     registros.push_back(aIncluir);
 }
 
+//NUEVO: Directamente recibe el texto y lo añade
+void Comunicacion_Archivo::add_record(std::string aIncluir)
+{
+    //añade una copia del registro al archivo original
+    Registro temp;
+    temp.ConvertirDeTexto(aIncluir);
+    registros.push_back(temp);
+}
+
 /// 
 /// @return bool
 bool Comunicacion_Archivo::leerArchivo()
@@ -20,7 +29,7 @@ bool Comunicacion_Archivo::leerArchivo()
     while (getline(Archivo,temp))
     {
         //comprueba si es el header. Si es el header, lo ignora
-        if (temp=="device_id,sample_id,timestamp,position_x,position_y,velocity_x,velocity_y,total_distance,status")
+        if (temp=="timestamp,type,message")
         {
             continue;
         }
@@ -56,7 +65,7 @@ bool Comunicacion_Archivo::escribirRegistros()
     std::ofstream Archivo;
     Archivo.open(nombreArchivo,std::ios::out | std::ios::trunc);
     //escribe la cabecera
-    Archivo<<"device_id,sample_id,timestamp,position_x,position_y,velocity_x,velocity_y,total_distance,status"<<std::endl;
+    Archivo<<"timestamp,type,message"<<std::endl;
     //escribe todos los registros
     for (int i = 0; i < registros.size(); i++)
     {
@@ -74,7 +83,7 @@ void Comunicacion_Archivo::leerRegistros(std::string formato){
         std::cout<<"NOTA: formato de salida de terminal No reconocido, usando CSV."<<std::endl;
     }
     std::cout<<"Los registros están codificados de la siguiente forma:"<<std::endl;
-    std::cout<<"device_id,sample_id,timestamp,position_x,position_y,velocity_x,velocity_y,total_distance,status"<<std::endl;
+    std::cout<<"timestamp,type,message"<<std::endl;
     for (int i = 0; i < registros.size(); i++)
     {
         std::cout<<registros[i].convertirATexto(formato)<<std::endl;

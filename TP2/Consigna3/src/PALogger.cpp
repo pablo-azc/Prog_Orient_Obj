@@ -113,7 +113,7 @@ using namespace std;
 };
 
 
-/*
+
 int main() {
 	// ejemplo b�sico de uso
 	PALogger logger(PALogger::LogLevel::INFO, true, "aplicacionZ.log");
@@ -136,7 +136,7 @@ int main() {
 
 	return 0;
 }
-*/
+
 
 /*
 Observar

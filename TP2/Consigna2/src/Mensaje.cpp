@@ -6,7 +6,6 @@ Mensaje::Mensaje(int operacionEsperada){
 }
 
 
-
 /// 
 /// Si contiene el parametro, devuelve el indice. Si no lo contiene, devuelve -1
 /// @return int
@@ -37,7 +36,8 @@ std::string Mensaje::obtenerParametro(std::string nombreParametro) const
     }
     return datos[indice];
 }
-
+ 
+///Sobrecarga que deja acceder directamente al valor si se pasa un indice  
 std::string Mensaje::obtenerParametro(int indice) const
 {
     return datos[indice];

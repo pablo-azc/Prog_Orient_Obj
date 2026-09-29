@@ -5,7 +5,7 @@
 #include <stdlib.h>
 using namespace std;
 
-#include "XmlRpc.h"
+#include "lib/XmlRpc.h"
 using namespace XmlRpc;
 
 int main(int argc, char* argv[])

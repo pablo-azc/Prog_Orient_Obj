@@ -1,7 +1,7 @@
 /* server.cpp : codigo base para el TP sobre servidor XMLRPC
 */
 
-#include "XmlRpc.h"
+#include "lib/XmlRpc.h"
 using namespace XmlRpc;
 
 #include <iostream>

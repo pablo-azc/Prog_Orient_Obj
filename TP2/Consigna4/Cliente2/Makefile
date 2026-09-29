@@ -1,4 +1,4 @@
-SOURCE=inc/*
+SOURCE=clientcmd.cpp
 LIB=lib/*
 
 OUT=Cliente2.out
@@ -6,7 +6,7 @@ TESTOUT=prueba.out
 #OPTIONS = -IHeaders
 
 main:
-	g++ $(OPTIONS) -o $(OUT) $(SOURCE) $ main.cpp
+	g++ $(OPTIONS) -o $(OUT) $(LIB) $(SOURCE) 
 
 run:
 	./$(OUT)

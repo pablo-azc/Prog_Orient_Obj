@@ -24,6 +24,9 @@
 #include <sstream>
 #include <ctime>
 #include <iomanip>
+//Modificado: inclusion de Comunicación_archivo
+#include "Comunicacion_Archivo.h"
+#include "Registro.h"
 
 using namespace std;
 	
@@ -36,79 +39,71 @@ using namespace std;
 			ERROR
 		};
 
-		PALogger(const LogLevel &level, bool logToFile, const std::string& filename) 
+		//NUEVO: muestra los registros: No es mas que un handle a la función de Comunic_archivo
+		void leerRegistros(std::string Modo = "CSV"){
+			archivo_->leerRegistros(Modo);
+		}
+
+		PALogger(const LogLevel &level, bool logToFile,const std::string& module = "General", const std::string& filename = "Log.log") 
 			: level_(level), logToFile_(logToFile) {
 			
+			this->modulo_=module;
 			if (logToFile_) {
-				logFile_.open(filename, std::ios::app); 
-				if (!logFile_.is_open()) {
-					std::cerr << "Error al abrir el archivo de log: " << filename << std::endl;
-					std::cerr << "Se continua sin registro permanente. " << std::endl;
-					logToFile_ = false;
-				}
+				archivo_=new Comunicacion_Archivo(filename); 
 			}
 		}
 		
 		~PALogger() {
-			if (logToFile_) {
-				if (logFile_.is_open()) {
-					logFile_.close();
-				}
-			}
+			archivo_->escribirRegistros();
 		}
 		
-		void debug(std::string& message) { log(LogLevel::DEBUG, message); }
+		void debug(std::string& message, int id_d = -1, int id_u = -1) { log(LogLevel::DEBUG, message,id_d,id_u); }
 		
-		void info(std::string& message) { log(LogLevel::INFO, message); }
+		void info(std::string& message, int id_d = -1, int id_u = -1) { log(LogLevel::INFO, message,id_d,id_u); }
 		
-		void warning(std::string& message) { log(LogLevel::WARNING, message); }
+		void warning(std::string& message, int id_d= -1, int id_u = -1) { log(LogLevel::WARNING, message,id_d,id_u); }
 		
-		void error(std::string& message) { log(LogLevel::ERROR, message); }
+		void error(std::string& message, int id_d = -1, int id_u = -1) { log(LogLevel::ERROR, message,id_d,id_u); }
 		
 	private:
 		LogLevel level_;
 		bool logToFile_;
 		std::ofstream logFile_;
+		Comunicacion_Archivo* archivo_;
+		std::string modulo_;
 			
-		void log(LogLevel level, std::string& message) {
+		void log(LogLevel level, std::string& message, int id_dispositivo = -1, int id_usuario = -1) {
+			
+			if (level < level_) {
+				return;
+			}
+
 			std::time_t now = std::time(0); // Hora actual
 			std::tm timeinfo;
 			localtime_r(&now, &timeinfo); 	// Lleva hora a local en timeinfo [POSIX]
 			
-			std::stringstream messageNew;
-			messageNew << "[" << std::put_time(&timeinfo, "%Y-%m-%d %H:%M:%S") << "] ";
-			// tambien puede usar asctime_r(&timeinfo, buf) junto un char buffer[N];
-			
+			std::stringstream tiempo;
+			tiempo << std::put_time(&timeinfo, "%Y-%m-%d %H:%M:%S");
+			std::string tipo;
 			switch (level) {
 			case LogLevel::DEBUG:
-				messageNew << "[DEBUG] ";
+				tipo = "DEBUG";
 				break;
 			case LogLevel::INFO:
-				messageNew << "[INFO] ";
+				tipo = "INFO";;
 				break;
 			case LogLevel::WARNING:
-				messageNew << "[WARNING] ";
+				tipo = "WARN";
 				break;
 			case LogLevel::ERROR:
-				messageNew << "[ERROR] ";
+				tipo = "ERROR";
 				break;
 			}
-
-			messageNew << message;
-			message = messageNew.str();
-
-			if (level < level_) {
-				return;
-			}
 			
-			if (logToFile_) {
-				if (!logFile_.is_open()) {
-					std::cerr << "El archivo de log no esta abierto." << std::endl;
-					return;
-				}
-				
-				logFile_ << message << std::endl;
-			}			
+
+			Registro temporal(tiempo.str(),tipo,modulo_,message,id_dispositivo,id_usuario);
+			archivo_->add_record(temporal);
+			
 		}
 };
 

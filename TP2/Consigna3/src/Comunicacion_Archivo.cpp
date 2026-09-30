@@ -17,6 +17,7 @@ void Comunicacion_Archivo::add_record(std::string aIncluir)
     registros.push_back(temp);
 }
 
+
 /// 
 /// @return bool
 bool Comunicacion_Archivo::leerArchivo()
@@ -29,7 +30,7 @@ bool Comunicacion_Archivo::leerArchivo()
     while (getline(Archivo,temp))
     {
         //comprueba si es el header. Si es el header, lo ignora
-        if (temp=="timestamp,type,message")
+        if (temp=="timestamp,type,ID_Dev,ID_Client,message")
         {
             continue;
         }
@@ -65,7 +66,7 @@ bool Comunicacion_Archivo::escribirRegistros()
     std::ofstream Archivo;
     Archivo.open(nombreArchivo,std::ios::out | std::ios::trunc);
     //escribe la cabecera
-    Archivo<<"timestamp,type,message"<<std::endl;
+    Archivo<<"timestamp,type,ID_Dev,ID_Client,message"<<std::endl;
     //escribe todos los registros
     for (int i = 0; i < registros.size(); i++)
     {

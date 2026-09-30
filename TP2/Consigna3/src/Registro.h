@@ -10,6 +10,11 @@ class Registro
 {
 public:
   /// 
+
+  Registro(){};
+  Registro(std::string timestamp,std::string tipo,std::string modulo,std::string mensaje,
+  int disp=-1, int client=-1);
+
   std::string convertirATexto(std::string formato="CSV");
 
 
@@ -21,8 +26,8 @@ private:
   // Private attributes  
 
 
-  std::string timestamp, type, menssage;
-
+  std::string timestamp, type,modulo, menssage;
+  int ID_disp,ID_client;
 };
 
 #endif // REGISTRO_H

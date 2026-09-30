@@ -26,6 +26,7 @@ public:
   void add_record(std::string aIncluir);
 
 
+
   /// 
   /// @return bool
   void leerRegistros(std::string formato="CSV");

@@ -1,4 +1,4 @@
-#HEAD=inc/*
+HEAD=inc/*
 LIB=lib/*
 SOURCE=server.cpp
 OUT=Servidor.out

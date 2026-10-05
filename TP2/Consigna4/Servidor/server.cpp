@@ -26,9 +26,9 @@ int main(int argc, char* argv[])
   // mediante el uso del constructor heredado.
   // Cada clase modela un metodo, implementado en execute().
   // Cada clase admite una ayuda, en help().
-  ServerTest serverTest(&S);
-  Eco eco(&S);
-  Sumar sumar(&S);
+  funciones::ServerTest serverTest(&S);
+  funciones::Eco eco(&S);
+  funciones::Sumar sumar(&S);
 
   XmlRpc::setVerbosity(5);
 

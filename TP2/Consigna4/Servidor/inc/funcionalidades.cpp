@@ -6,22 +6,22 @@
 
 //Funciones de ServerTest
 
-ServerTest::ServerTest(XmlRpc::XmlRpcServer* S) : XmlRpc::XmlRpcServerMethod("ServerTest", S) {}
+funciones::ServerTest::ServerTest(XmlRpc::XmlRpcServer* S) : XmlRpc::XmlRpcServerMethod("ServerTest", S) {}
 
-void ServerTest::execute(XmlRpc::XmlRpcValue& params, XmlRpc::XmlRpcValue& result)
+void funciones::ServerTest::execute(XmlRpc::XmlRpcValue& params, XmlRpc::XmlRpcValue& result)
 {
     result = "Hi, soy el servidor RPC !!";
 }
 
-std::string ServerTest::help() { return std::string("Respondo quien soy cuando no hay argumentos"); }
+std::string funciones::ServerTest::help() { return std::string("Respondo quien soy cuando no hay argumentos"); }
 
 
 
 // Funciones de ECO
 // Con un argumento, el resultado es "Hola, " + argumento + argumento
-Eco::Eco(XmlRpc::XmlRpcServer* S) : XmlRpc::XmlRpcServerMethod("Eco", S) {}
+funciones::Eco::Eco(XmlRpc::XmlRpcServer* S) : XmlRpc::XmlRpcServerMethod("Eco", S) {}
 
-void Eco::execute(XmlRpc::XmlRpcValue& params, XmlRpc::XmlRpcValue& result)
+void funciones::Eco::execute(XmlRpc::XmlRpcValue& params, XmlRpc::XmlRpcValue& result)
   {
     std::string resultString = "Hola, ";
     resultString += std::string(params[0]);
@@ -30,14 +30,14 @@ void Eco::execute(XmlRpc::XmlRpcValue& params, XmlRpc::XmlRpcValue& result)
     result = resultString;
   }
 
-std::string Eco::help() { return std::string("Diga algo y recibira un saludo"); }
+std::string funciones::Eco::help() { return std::string("Diga algo y recibira un saludo"); }
 
 
 // Funciones de SUMAR
 // Con un numero variable de argumentos, todos dobles, el resultado es la suma
-Sumar::Sumar(XmlRpc::XmlRpcServer* S) : XmlRpc::XmlRpcServerMethod("Sumar", S) {}
+funciones::Sumar::Sumar(XmlRpc::XmlRpcServer* S) : XmlRpc::XmlRpcServerMethod("Sumar", S) {}
 
-void Sumar::execute(XmlRpc::XmlRpcValue& params, XmlRpc::XmlRpcValue& result)
+void funciones::Sumar::execute(XmlRpc::XmlRpcValue& params, XmlRpc::XmlRpcValue& result)
   {
     int nArgs = params.size();
     double sum = 0.0;
@@ -46,4 +46,4 @@ void Sumar::execute(XmlRpc::XmlRpcValue& params, XmlRpc::XmlRpcValue& result)
     result = sum;
   }
 
-std::string Sumar::help() { return std::string("Indique varios numeros reales separados por espacio"); }
+std::string funciones::Sumar::help() { return std::string("Indique varios numeros reales separados por espacio"); }

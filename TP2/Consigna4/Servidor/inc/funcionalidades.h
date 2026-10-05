@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <stdlib.h>
-//class funciones{
-//    public:
+class funciones{
+    public:
     // Sin argumentos, el resultado es "Hi, soy el servidor RPC !!".
     class ServerTest : public XmlRpc::XmlRpcServerMethod
     {
@@ -37,4 +37,4 @@
 
         std::string help();
     };
-//};
+};

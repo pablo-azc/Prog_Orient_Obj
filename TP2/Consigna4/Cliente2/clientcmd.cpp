@@ -11,10 +11,18 @@ using namespace std;
 #include "XmlRpc.h"
 using namespace XmlRpc;
 
-// Se puede recibir por linea de argumentos una cadena vacia,
-// una cadena alfanumerica, un conjunto de numeros reales
-// 2 cadenas siendo la primera la palabra help
+#include "inc/Comprobaciones.cpp"
 
+
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
+#include <cctype>
+using namespace std;
+
+#include "XmlRpc.h"
+using namespace XmlRpc;
 
 // Verifica si la cadena es un entero valido
 bool esEntero(const string& s) {
@@ -78,6 +86,13 @@ bool sonNumerosReales(const vector<string>& tokens, XmlRpcValue& numbers) {
   }
   return true;
 }
+
+// Se puede recibir por linea de argumentos una cadena vacia,
+// una cadena alfanumerica, un conjunto de numeros reales
+// 2 cadenas siendo la primera la palabra help
+
+
+
 
 int main(int argc, char* argv[])
 {

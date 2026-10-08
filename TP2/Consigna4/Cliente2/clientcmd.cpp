@@ -8,24 +8,16 @@
 #include <cctype>
 using namespace std;
 
-#include "XmlRpc.h"
+#include "lib/XmlRpc.h"
 using namespace XmlRpc;
+#include "inc/funciones.h"
+// Se puede recibir por linea de argumentos una cadena vacia,
+// una cadena alfanumerica, un conjunto de numeros reales
+// 2 cadenas siendo la primera la palabra help
 
-#include "inc/Comprobaciones.cpp"
-
-
-#include <iostream>
-#include <sstream>
-#include <string>
-#include <vector>
-#include <cctype>
-using namespace std;
-
-#include "XmlRpc.h"
-using namespace XmlRpc;
 
 // Verifica si la cadena es un entero valido
-bool esEntero(const string& s) {
+bool esEntero(const std::string& s) {
     if (s.empty()) return false;
 
     size_t i = 0;
@@ -40,9 +32,9 @@ bool esEntero(const string& s) {
 }
 
 // Verifica si la cadena es una dirección IPv4 válida
-bool esIP(const string& s) {
-    stringstream ss(s);
-    string segmento;
+bool esIP(const std::string& s) {
+    std::stringstream ss(s);
+    std::string segmento;
     int count = 0;
 
     while (getline(ss, segmento, '.')) {
@@ -58,7 +50,7 @@ bool esIP(const string& s) {
 }
 
 // Verificar si es alfanumerica (sin espacios, solo letras o digitos)
-bool esAlfanumerica(const string& s) {
+bool esAlfanumerica(const std::string& s) {
     if (s.empty()) return false;
     for (char c : s) {
         if (!isalnum(static_cast<unsigned char>(c))) return false;
@@ -67,10 +59,10 @@ bool esAlfanumerica(const string& s) {
 }
 
 // Verificar si una cadena es un numero real
-bool esReal(const string& s) {
+bool esReal(const std::string& s) {
     try {
         size_t pos;
-        stod(s, &pos);       // convierte a double
+        std::stod(s, &pos);       // convierte a double
         return pos == s.size(); // true si se consumio toda la cadena
     }
     catch (...) {
@@ -79,18 +71,14 @@ bool esReal(const string& s) {
 }
 
 // Verificar si todos los tokens son numeros reales
-bool sonNumerosReales(const vector<string>& tokens, XmlRpcValue& numbers) {
+bool sonNumerosReales(const std::vector<std::string>& tokens, std::vector<float> &salida) {
   for (size_t i = 3; i < tokens.size(); ++i) {
       if(!esReal(tokens[i])) return false;
-      numbers[i-3]=stod(tokens[i]);
+      salida[i-3]=std::stof(tokens[i]);
   }
+  
   return true;
 }
-
-// Se puede recibir por linea de argumentos una cadena vacia,
-// una cadena alfanumerica, un conjunto de numeros reales
-// 2 cadenas siendo la primera la palabra help
-
 
 
 
@@ -99,6 +87,8 @@ int main(int argc, char* argv[])
   std::vector<std::string> args(argv, argv + argc);
   int port;
   const char* ip; // string
+
+  std::vector<float> temporal;
 
   if (argc < 3) {
     std::cerr << "Modo de Uso: clientcmd25 IP_HOST N_PORT otros_argumentos\n";
@@ -128,65 +118,36 @@ int main(int argc, char* argv[])
 
   XmlRpcClient c(ip, port);
 
-  XmlRpcValue noArgs, result;
-  XmlRpcValue oneArg;
-  XmlRpcValue numbers;
+  funciones Cliente(c);
 
   if(args.size()==3){
         cout << "Caso 1: Cadena vacia\n";
-        std::cout << "********************** Llamada al metodo ServerTest **********************" << std::endl ;
-        if (c.execute("ServerTest", noArgs, result))
-          std::cout << result << "\n\n";
-        else
-          std::cout << "Error en la llamada a 'ServerTest'\n\n";
-
+        Cliente.serverTest();
         return 0;
   }
 
   if(args.size()==4 && esAlfanumerica(args[3])) {
         cout << "Caso 2: Una cadena alfanumerica sin espacios '" << args[3] << "'\n";
-        std::cout << "******************* Llamada al metodo Eco *******************" << std::endl ;
-        oneArg[0] = args[3];
-        if (c.execute("Eco", oneArg, result))
-          std::cout << result << "\n\n";
-        else
-          std::cout << "Error en la llamada a 'Eco'\n\n";
-
+        Cliente.Eco(args[3]);
         return 0;
     }
 
-    if (args.size()>=4 && sonNumerosReales(args, numbers)) {
-        cout << "Caso 3: Conjunto de números reales [";
-        for (size_t i = 3; i < args.size(); ++i) {
-            cout << args[i] << (i + 1 < args.size() ? ", " : "");
-        }
-        cout << "]\n";
-        std::cout << "valor 0 is " << numbers[0] << std::endl;
-        std::cout << "valor 1 is " << numbers[1] << std::endl;
-        std::cout << "****************** Llamada al metodo Sumar *******************" << std::endl ;
+  if (args.size()>=4 && sonNumerosReales(args,temporal)) {
+      cout << "Caso 3: Conjunto de números reales [";
+      for (size_t i = 3; i < args.size(); ++i) {
+          cout << args[i] << (i + 1 < args.size() ? ", " : "");
+      }
+      Cliente.sumatoria(temporal);
+      return 0;
+  }
 
+  if (args.size()==5 && args[3] == "help") {
+      cout << "Caso 4: Solicitud de Help para el servicio '" << args[4] << "'\n";
+    std::cout << "****** Llamada a help ******" << std::endl ;
+      Cliente.Ayuda(args[4]);
+  }
 
-        if (c.execute("Sumar", numbers, result))
-          std::cout << "Suma = " << double(result) << "\n\n";
-        else
-          std::cout << "Error en la llamada a 'Sumar'\n\n";
-
-        return 0;
-    }
-
-    if (args.size()==5 && args[3] == "help") {
-        cout << "Caso 4: Solicitud de Help para el servicio '" << args[4] << "'\n";
-      std::cout << "****** Llamada a help ******" << std::endl ;
-        oneArg[0] = args[4];
-        if (c.execute("system.methodHelp", oneArg, result))
-          std::cout << "Ayuda para el metodo '" << args[4] << "':\n" << result << "\n\n";
-        else
-          std::cout << "Error en la llamada a 'methodHelp'\n\n";
-
-        return 0;
-    }
-
-    // Ningún caso coincide
-    cout << "Entrada no reconocida.\n";
-    return 0;
+  // Ningún caso coincide
+  cout << "Entrada no reconocida.\n";
+  return 0;
 }

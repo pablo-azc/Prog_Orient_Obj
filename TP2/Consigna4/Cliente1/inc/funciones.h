@@ -25,7 +25,7 @@ class MultiCall
 {
 private:
     XmlRpc::XmlRpcValue multicall;
-    int indice;
+    int indice=0;
 public:
     void añadirSuma(std::vector<float> lista);
     void añadirEco(std::string text);

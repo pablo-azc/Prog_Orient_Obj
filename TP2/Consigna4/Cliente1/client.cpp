@@ -9,24 +9,38 @@ using namespace std;
 using namespace XmlRpc;
 
 #include "inc/funciones.h"
+#include "inc/excepcionesRed.h"
 
 int main(int argc, char* argv[])
 {
-  if (argc != 3) {
-    std::cerr << "Uso: miclient IP_HOST N_PORT\n";
+  XmlRpcClient* clienteRPC;
+  try
+  {
+    if (argc != 3) {
+      throw ErrorParametro("Uso: Cliente IP_SERVIDOR PUERTO");
+    }
+  
+    int port = atoi(argv[2]);
+    //XmlRpc::setVerbosity(5);
+
+    clienteRPC = new XmlRpcClient(argv[1], port);
+    
+  
+  }
+  catch(const ErrorParametro& e)
+  {
+    std::cerr << e.what() << '\n';
     return -1;
   }
-  
-  int port = atoi(argv[2]);
-  //XmlRpc::setVerbosity(5);
-
-  XmlRpcClient c(argv[1], port);
+  catch(const std::exception& e){
+    std::cerr << "Error durante la ejecución: " << e.what() << '\n';
+    return -1;
+  }
 
   int cont = 0;
-  
-  funciones cliente(c);
 
-  while(true){
+  funciones cliente(*clienteRPC);
+      while(true){
     switch(cont){
       case 0:
         cliente.mostrarMetodos();
@@ -51,10 +65,11 @@ int main(int argc, char* argv[])
         std::cout << "**************** Prueba de llamada a metodos multiples ***************" << std::endl;
         // En este caso se trata de argumento unico, un array de estructuras
         MultiCall multi1;
+        
         multi1.añadirSuma({5,9});
         multi1.añadirEco("Juan");
         multi1.añadirSuma({10.5,12.5,-3.0});
-
+        
         cliente.enviarMulticall(multi1.llamada());
         break;
     }
@@ -63,4 +78,6 @@ int main(int argc, char* argv[])
   }
 
   return 0;
+
+
 }

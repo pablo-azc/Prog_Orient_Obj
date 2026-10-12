@@ -9,13 +9,14 @@ using namespace XmlRpc;
 using namespace std;
 
 #include "inc/funcionalidades.h"
+#include "inc/excepcionesRed.h"
 
 int main(int argc, char* argv[])
 {
-  //Comentarios de inicialización
+  try
+  {
   if (argc != 2) {
-    std::cerr << "Uso: miserver N_Port\n";
-    return 1;
+    throw ErrorParametro("Uso: miserver N_Port\n");
   }
   int port = atoi(argv[1]);
 
@@ -40,6 +41,17 @@ int main(int argc, char* argv[])
 
   // A la escucha de requerimientos
   S.work(-1.0);
+  }
+  catch(const ErrorParametro& e)
+  {
+    std::cerr << e.what() << '\n';
+    return -1;
+  }
+  catch(const std::exception& e)
+  {
+    std::cerr << "Error del sistema:" << e.what() << '\n';
+  }
+  
 
   return 0;
 }

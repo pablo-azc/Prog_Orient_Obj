@@ -11,6 +11,7 @@ using namespace std;
 #include "lib/XmlRpc.h"
 using namespace XmlRpc;
 #include "inc/funciones.h"
+#include "inc/excepcionesRed.h"
 // Se puede recibir por linea de argumentos una cadena vacia,
 // una cadena alfanumerica, un conjunto de numeros reales
 // 2 cadenas siendo la primera la palabra help
@@ -74,7 +75,7 @@ bool esReal(const std::string& s) {
 bool sonNumerosReales(const std::vector<std::string>& tokens, std::vector<float> &salida) {
   for (size_t i = 3; i < tokens.size(); ++i) {
       if(!esReal(tokens[i])) return false;
-      salida[i-3]=std::stof(tokens[i]);
+      salida.push_back(std::stof(tokens[i]));
   }
   
   return true;
@@ -88,12 +89,14 @@ int main(int argc, char* argv[])
   int port;
   const char* ip; // string
 
+  XmlRpcClient* clienteRPC;
+
   std::vector<float> temporal;
 
+  try
+  {
   if (argc < 3) {
-    std::cerr << "Modo de Uso: clientcmd25 IP_HOST N_PORT otros_argumentos\n";
-    std::cerr << "o bien: clientcmd25 IP_HOST N_PORT help nombre_servicio\n";
-    return -1;
+    throw ErrorParametro("Parametros insuficientes. Modo de Uso: client IP_HOST N_PORT otros_argumentos");
   }
 
   for (size_t i = 0; i < args.size(); ++i) {
@@ -104,21 +107,31 @@ int main(int argc, char* argv[])
     ip = args[1].c_str();
   }
   else {
-    std::cerr << "No corresponde a un IP valido\n";
-    return -1;
+    throw ErrorParametro("No corresponde a un IP valido");
   }
 
   if(esEntero(args[2])){
     port = atoi(args[2].c_str());
   }
   else {
-    std::cerr << "El port debe ser un entero\n";
+    throw ErrorParametro("No corresponde a un Puerto valido");;
+  }
+
+  clienteRPC = new XmlRpcClient(ip, port);
+
+  }
+  catch(const ErrorParametro& e)
+  {
+    std::cerr << e.what() << '\n';
+    return -1;
+  }
+  catch(const std::exception& e)
+  {
+    std::cerr << "Error de sistema:" << e.what() << '\n';
     return -1;
   }
 
-  XmlRpcClient c(ip, port);
-
-  funciones Cliente(c);
+  funciones Cliente(*clienteRPC);
 
   if(args.size()==3){
         cout << "Caso 1: Cadena vacia\n";
